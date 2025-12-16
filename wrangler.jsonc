@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pixorai",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "pixorai",
+      "database_id": "3f278c8b-a995-4384-b0bd-fcf9bb9836b6",
+      "migrations_dir": "drizzle",
+      "remote": true
+    }
+  ]
+}

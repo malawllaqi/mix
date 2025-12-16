@@ -1,5 +1,5 @@
 {
-  "projectName": "khyal",
+  "projectName": "pixorai",
   "mode": "file-router",
   "typescript": true,
   "tailwind": true,
@@ -14,7 +14,7 @@
   "framework": "react-cra",
   "chosenAddOns": [
     "biome",
-    "nitro",
+    "cloudflare",
     "start",
     "tRPC",
     "drizzle",

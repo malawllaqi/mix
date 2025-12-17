@@ -14,7 +14,8 @@ import { Route as authenticatedRouteRouteImport } from './routes/(authenticated)
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as unauthenticatedSignupRouteImport } from './routes/(unauthenticated)/signup'
 import { Route as unauthenticatedLoginRouteImport } from './routes/(unauthenticated)/login'
-import { Route as ApiTrpcSplatRouteImport } from './routes/api.trpc.$'
+import { Route as authenticatedChatIndexRouteImport } from './routes/(authenticated)/chat/index'
+import { Route as ApiRpcSplatRouteImport } from './routes/api/rpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const unauthenticatedRouteRoute = unauthenticatedRouteRouteImport.update({
@@ -40,9 +41,14 @@ const unauthenticatedLoginRoute = unauthenticatedLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => unauthenticatedRouteRoute,
 } as any)
-const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
-  id: '/api/trpc/$',
-  path: '/api/trpc/$',
+const authenticatedChatIndexRoute = authenticatedChatIndexRouteImport.update({
+  id: '/chat/',
+  path: '/chat/',
+  getParentRoute: () => authenticatedRouteRoute,
+} as any)
+const ApiRpcSplatRoute = ApiRpcSplatRouteImport.update({
+  id: '/api/rpc/$',
+  path: '/api/rpc/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
@@ -56,30 +62,33 @@ export interface FileRoutesByFullPath {
   '/login': typeof unauthenticatedLoginRoute
   '/signup': typeof unauthenticatedSignupRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/trpc/$': typeof ApiTrpcSplatRoute
+  '/api/rpc/$': typeof ApiRpcSplatRoute
+  '/chat': typeof authenticatedChatIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof unauthenticatedLoginRoute
   '/signup': typeof unauthenticatedSignupRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/trpc/$': typeof ApiTrpcSplatRoute
+  '/api/rpc/$': typeof ApiRpcSplatRoute
+  '/chat': typeof authenticatedChatIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/(authenticated)': typeof authenticatedRouteRoute
+  '/(authenticated)': typeof authenticatedRouteRouteWithChildren
   '/(unauthenticated)': typeof unauthenticatedRouteRouteWithChildren
   '/(unauthenticated)/login': typeof unauthenticatedLoginRoute
   '/(unauthenticated)/signup': typeof unauthenticatedSignupRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/trpc/$': typeof ApiTrpcSplatRoute
+  '/api/rpc/$': typeof ApiRpcSplatRoute
+  '/(authenticated)/chat/': typeof authenticatedChatIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/api/auth/$' | '/api/trpc/$'
+  fullPaths: '/' | '/login' | '/signup' | '/api/auth/$' | '/api/rpc/$' | '/chat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/api/auth/$' | '/api/trpc/$'
+  to: '/' | '/login' | '/signup' | '/api/auth/$' | '/api/rpc/$' | '/chat'
   id:
     | '__root__'
     | '/'
@@ -88,15 +97,16 @@ export interface FileRouteTypes {
     | '/(unauthenticated)/login'
     | '/(unauthenticated)/signup'
     | '/api/auth/$'
-    | '/api/trpc/$'
+    | '/api/rpc/$'
+    | '/(authenticated)/chat/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  authenticatedRouteRoute: typeof authenticatedRouteRoute
+  authenticatedRouteRoute: typeof authenticatedRouteRouteWithChildren
   unauthenticatedRouteRoute: typeof unauthenticatedRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
+  ApiRpcSplatRoute: typeof ApiRpcSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -136,11 +146,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof unauthenticatedLoginRouteImport
       parentRoute: typeof unauthenticatedRouteRoute
     }
-    '/api/trpc/$': {
-      id: '/api/trpc/$'
-      path: '/api/trpc/$'
-      fullPath: '/api/trpc/$'
-      preLoaderRoute: typeof ApiTrpcSplatRouteImport
+    '/(authenticated)/chat/': {
+      id: '/(authenticated)/chat/'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof authenticatedChatIndexRouteImport
+      parentRoute: typeof authenticatedRouteRoute
+    }
+    '/api/rpc/$': {
+      id: '/api/rpc/$'
+      path: '/api/rpc/$'
+      fullPath: '/api/rpc/$'
+      preLoaderRoute: typeof ApiRpcSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/auth/$': {
@@ -152,6 +169,17 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface authenticatedRouteRouteChildren {
+  authenticatedChatIndexRoute: typeof authenticatedChatIndexRoute
+}
+
+const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
+  authenticatedChatIndexRoute: authenticatedChatIndexRoute,
+}
+
+const authenticatedRouteRouteWithChildren =
+  authenticatedRouteRoute._addFileChildren(authenticatedRouteRouteChildren)
 
 interface unauthenticatedRouteRouteChildren {
   unauthenticatedLoginRoute: typeof unauthenticatedLoginRoute
@@ -168,10 +196,10 @@ const unauthenticatedRouteRouteWithChildren =
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  authenticatedRouteRoute: authenticatedRouteRoute,
+  authenticatedRouteRoute: authenticatedRouteRouteWithChildren,
   unauthenticatedRouteRoute: unauthenticatedRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-  ApiTrpcSplatRoute: ApiTrpcSplatRoute,
+  ApiRpcSplatRoute: ApiRpcSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

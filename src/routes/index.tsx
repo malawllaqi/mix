@@ -4,9 +4,6 @@ import { authQueryOptions } from "@/modules/auth/queries";
 
 export const Route = createFileRoute("/")({
 	beforeLoad: async ({ context }) => {
-		// await context.queryClient.ensureQueryData(
-		// 	context.trpc.todo.list.queryOptions()
-		// );
 		const currentUser = await context.queryClient.ensureQueryData({
 			...authQueryOptions(),
 			revalidateIfStale: true,
@@ -19,8 +16,7 @@ export const Route = createFileRoute("/")({
 
 function App() {
 	const { currentUser } = Route.useRouteContext();
-	// const trpc = useTRPC();
-	// const { data } = useSuspenseQuery(trpc.todo.list.queryOptions());
+
 	return (
 		<div className="p-6">
 			<h1 className="font-bold text-3xl">Pixorai</h1>

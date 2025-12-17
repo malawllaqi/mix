@@ -21,3 +21,5 @@ export const auth = betterAuth({
 	},
 	plugins: [admin(), tanstackStartCookies()], // make sure this is the last plugin in the array
 });
+
+export type Session = typeof auth.$Infer.Session;

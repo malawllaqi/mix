@@ -14,6 +14,7 @@ import { Route as authenticatedRouteRouteImport } from './routes/(authenticated)
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as unauthenticatedSignupRouteImport } from './routes/(unauthenticated)/signup'
 import { Route as unauthenticatedLoginRouteImport } from './routes/(unauthenticated)/login'
+import { Route as authenticatedImageIndexRouteImport } from './routes/(authenticated)/image/index'
 import { Route as authenticatedChatIndexRouteImport } from './routes/(authenticated)/chat/index'
 import { Route as ApiRpcSplatRouteImport } from './routes/api/rpc.$'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
@@ -41,6 +42,11 @@ const unauthenticatedLoginRoute = unauthenticatedLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => unauthenticatedRouteRoute,
 } as any)
+const authenticatedImageIndexRoute = authenticatedImageIndexRouteImport.update({
+  id: '/image/',
+  path: '/image/',
+  getParentRoute: () => authenticatedRouteRoute,
+} as any)
 const authenticatedChatIndexRoute = authenticatedChatIndexRouteImport.update({
   id: '/chat/',
   path: '/chat/',
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
   '/chat': typeof authenticatedChatIndexRoute
+  '/image': typeof authenticatedImageIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByTo {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
   '/chat': typeof authenticatedChatIndexRoute
+  '/image': typeof authenticatedImageIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -83,12 +91,27 @@ export interface FileRoutesById {
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/rpc/$': typeof ApiRpcSplatRoute
   '/(authenticated)/chat/': typeof authenticatedChatIndexRoute
+  '/(authenticated)/image/': typeof authenticatedImageIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/signup' | '/api/auth/$' | '/api/rpc/$' | '/chat'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/api/auth/$'
+    | '/api/rpc/$'
+    | '/chat'
+    | '/image'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/signup' | '/api/auth/$' | '/api/rpc/$' | '/chat'
+  to:
+    | '/'
+    | '/login'
+    | '/signup'
+    | '/api/auth/$'
+    | '/api/rpc/$'
+    | '/chat'
+    | '/image'
   id:
     | '__root__'
     | '/'
@@ -99,6 +122,7 @@ export interface FileRouteTypes {
     | '/api/auth/$'
     | '/api/rpc/$'
     | '/(authenticated)/chat/'
+    | '/(authenticated)/image/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -146,6 +170,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof unauthenticatedLoginRouteImport
       parentRoute: typeof unauthenticatedRouteRoute
     }
+    '/(authenticated)/image/': {
+      id: '/(authenticated)/image/'
+      path: '/image'
+      fullPath: '/image'
+      preLoaderRoute: typeof authenticatedImageIndexRouteImport
+      parentRoute: typeof authenticatedRouteRoute
+    }
     '/(authenticated)/chat/': {
       id: '/(authenticated)/chat/'
       path: '/chat'
@@ -172,10 +203,12 @@ declare module '@tanstack/react-router' {
 
 interface authenticatedRouteRouteChildren {
   authenticatedChatIndexRoute: typeof authenticatedChatIndexRoute
+  authenticatedImageIndexRoute: typeof authenticatedImageIndexRoute
 }
 
 const authenticatedRouteRouteChildren: authenticatedRouteRouteChildren = {
   authenticatedChatIndexRoute: authenticatedChatIndexRoute,
+  authenticatedImageIndexRoute: authenticatedImageIndexRoute,
 }
 
 const authenticatedRouteRouteWithChildren =

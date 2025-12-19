@@ -15,6 +15,13 @@
       "when": 1765864295383,
       "tag": "0001_narrow_puff_adder",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1766108701176,
+      "tag": "0002_nifty_martin_li",
+      "breakpoints": true
     }
   ]
 }

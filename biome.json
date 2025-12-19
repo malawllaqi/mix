@@ -39,7 +39,8 @@
         "useBlockStatements": "off"
       },
       "correctness": {
-        "noChildrenProp": "off"
+        "noChildrenProp": "off",
+        "useImageSize": "off"
       },
       "nursery": { "noLeakedRender": "off" },
       "suspicious": {

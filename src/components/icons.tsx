@@ -1,6 +1,14 @@
-import type { LucideProps } from "lucide-react";
+import {
+	type LucideProps,
+	MessageCircle,
+	Sparkles,
+	Triangle,
+} from "lucide-react";
 
 export const Icons = {
+	logo: Triangle,
+	sparkles: Sparkles,
+	chat: MessageCircle,
 	gitHub: ({ ...props }: LucideProps) => (
 		<svg
 			aria-hidden="true"

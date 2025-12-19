@@ -104,7 +104,7 @@ export const ChatBot = () => {
 		setInput("");
 	};
 	return (
-		<div className="relative mx-auto size-full h-screen max-w-4xl p-6">
+		<div className="relative mx-auto size-full h-[calc(100vh-4rem)] max-w-4xl p-6">
 			<div className="flex h-full flex-col">
 				<Conversation className="h-full">
 					<ConversationContent>

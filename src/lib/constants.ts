@@ -1,27 +1,3 @@
-import type { NavItem } from "./types";
-
-export const navItems: NavItem[] = [
-	{
-		title: "Chat",
-		url: "/chat",
-		icon: "chat",
-	},
-];
-
-export const userMenuItems = [
-	{
-		title: "Profile",
-		href: "/settings/profile",
-	},
-	{
-		title: "Account Settings",
-		href: "/dashboard/account",
-	},
-	{
-		title: "Logout",
-		href: "/logout",
-	},
-];
 export const restrictedUsernames = [
 	"admin",
 	"administrator",

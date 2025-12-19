@@ -1,21 +1,17 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
-import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
-import { AppProviders } from "@/components/providers";
-import type { AppRouter } from "@/integrations/trpc/router";
-import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
+import { AppProviders } from "@/components/providers/app-provider";
 import appCss from "../styles.css?url";
 
 type MyRouterContext = {
 	queryClient: QueryClient;
-
-	trpc: TRPCOptionsProxy<AppRouter>;
 };
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -45,22 +41,22 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 
 function RootDocument({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
 				<AppProviders>{children}</AppProviders>
 				<TanStackDevtools
-					config={{
-						position: "bottom-right",
-					}}
 					plugins={[
 						{
-							name: "Tanstack Router",
+							name: "TanStack Query",
+							render: <ReactQueryDevtoolsPanel />,
+						},
+						{
+							name: "TanStack Router",
 							render: <TanStackRouterDevtoolsPanel />,
 						},
-						TanStackQueryDevtools,
 					]}
 				/>
 				<Scripts />

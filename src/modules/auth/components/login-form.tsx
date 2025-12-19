@@ -20,6 +20,7 @@ import { SignInSocial } from "./signin-social";
 
 const formSchema = z.object({
 	email: z.email(),
+	username: z.string().min(1),
 	password: z.string().min(8),
 });
 export type LoginFormType = z.infer<typeof formSchema>;
@@ -87,7 +88,7 @@ export function LoginForm() {
 						Sign In or Join Now!
 					</h1>
 					<p className="text-base text-muted-foreground">
-						signup or create your efferd account.
+						signup or create your account.
 					</p>
 				</div>
 				<div className="space-y-2">

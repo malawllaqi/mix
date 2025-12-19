@@ -1,4 +1,4 @@
-import { createFileRoute, redirect } from "@tanstack/react-router";
+import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { authQueryOptions } from "@/modules/auth/queries";
 
 export const Route = createFileRoute("/(authenticated)")({
@@ -18,5 +18,5 @@ export const Route = createFileRoute("/(authenticated)")({
 });
 
 function RouteComponent() {
-	return <div>Hello "/(authenticated)"!</div>;
+	return <Outlet />;
 }

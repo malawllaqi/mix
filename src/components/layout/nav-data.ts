@@ -2,12 +2,12 @@ import type { NavItem } from "@/lib/types";
 
 export const navItems: NavItem[] = [
 	{
-		title: "Chat",
+		title: "nav.chat",
 		url: "/chat",
 		icon: "chat",
 	},
 	{
-		title: "Create Image",
+		title: "nav.image",
 		url: "/image",
 		icon: "sparkles",
 	},
@@ -15,15 +15,15 @@ export const navItems: NavItem[] = [
 
 export const userMenuItems = [
 	{
-		title: "Profile",
+		title: "user-menu.profile",
 		href: "/settings/profile",
 	},
 	{
-		title: "Account Settings",
+		title: "user-menu.account-settings",
 		href: "/dashboard/account",
 	},
 	{
-		title: "Logout",
+		title: "user-menu.logout",
 		href: "/logout",
 	},
 ];

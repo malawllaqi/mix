@@ -1,13 +1,17 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+
 import {
 	createRootRouteWithContext,
 	HeadContent,
 	Scripts,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { useTranslation } from "react-i18next";
 import { AppProviders } from "@/components/providers/app-provider";
+import { setSSRLanguage, syncLanguage } from "@/lib/i18n";
+import { AVAILABLE_LANGUAGES } from "@/lib/i18n/config";
 import appCss from "../styles.css?url";
 
 type MyRouterContext = {
@@ -15,6 +19,9 @@ type MyRouterContext = {
 };
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+	beforeLoad: async () => {
+		await setSSRLanguage();
+	},
 	head: () => ({
 		meta: [
 			{
@@ -40,8 +47,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+	const { i18n } = useTranslation();
+	syncLanguage(i18n.language);
+
+	const languageConfig = AVAILABLE_LANGUAGES.find(
+		({ key }) => key === i18n.language
+	);
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html
+			dir={languageConfig?.dir ?? "ltr"}
+			lang={i18n.language}
+			suppressHydrationWarning
+		>
 			<head>
 				<HeadContent />
 			</head>

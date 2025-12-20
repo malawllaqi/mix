@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "chat": "Chat",
+    "image": "Create image",
+    "setting": "Setting"
+  },
+  "user-menu": {
+    "profile": "Profile",
+    "account-settings": "Account Settings",
+    "logout": "Logout"
+  }
+}

@@ -36,13 +36,15 @@
         "noBarrelFile": "off"
       },
       "style": {
-        "useBlockStatements": "off"
+        "useBlockStatements": "off",
+        "noExportedImports": "off"
       },
       "correctness": {
         "noChildrenProp": "off",
-        "useImageSize": "off"
+        "useImageSize": "off",
+        "useExhaustiveDependencies": "off"
       },
-      "nursery": { "noLeakedRender": "off" },
+      "nursery": { "noLeakedRender": "off", "noShadow": "off" },
       "suspicious": {
         "useAwait": "off"
       },

@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronUp, SettingsIcon, User } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -27,6 +28,8 @@ import { navItems, userMenuItems } from "./nav-data";
 
 type AppSidebarProps = {} & CurrentUserProps;
 export function AppSidebar({ currentUser }: AppSidebarProps) {
+	const { t } = useTranslation(["layout"]);
+
 	return (
 		<Sidebar collapsible="icon">
 			<SidebarHeader>
@@ -69,7 +72,7 @@ export function AppSidebar({ currentUser }: AppSidebarProps) {
 											to={item.url}
 										>
 											<Icon />
-											<span>{item.title}</span>
+											<span>{t(item.title)}</span>
 										</Link>
 									</SidebarMenuButton>
 								</SidebarMenuItem>
@@ -111,17 +114,17 @@ export function AppSidebar({ currentUser }: AppSidebarProps) {
 							>
 								{userMenuItems.map((item) => (
 									<DropdownMenuItem asChild key={item.href}>
-										{item.title === "Logout" ? (
+										{item.title === "user-menu.logout" ? (
 											<LogoutBtn />
 										) : (
 											<Link className="flex items-center gap-2" to={item.href}>
-												{item.title === "Profile" && (
+												{item.title === "user-menu.profile" && (
 													<User className="size-4" />
 												)}
-												{item.title === "Account Settings" && (
+												{item.title === "user-menu.account-settings" && (
 													<SettingsIcon className="size-4" />
 												)}
-												{item.title}
+												{t(item.title)}
 											</Link>
 										)}
 									</DropdownMenuItem>

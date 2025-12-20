@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/layout/app-sidebar";
+import { LocalSwitcher } from "@/components/local-switcher";
 import { Separator } from "@/components/ui/separator";
 import {
 	SidebarInset,
@@ -34,6 +35,9 @@ function RouteComponent() {
 					<div className="flex items-center gap-2 px-4">
 						<SidebarTrigger className="-ml-1" />
 						<Separator className="mr-2 h-4" orientation="vertical" />
+						<div className="">
+							<LocalSwitcher />
+						</div>
 					</div>
 				</header>
 				<main className="flex h-[calc(100vh-4rem)]">
